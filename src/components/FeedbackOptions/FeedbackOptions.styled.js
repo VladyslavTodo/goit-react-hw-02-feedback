@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
 export const Button = styled.button`
   background-color: aliceblue;
   display: flex;
+  text-transform: uppercase;
   justify-content: center;
   align-items: center;
   font-size: 18px;

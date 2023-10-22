@@ -12,15 +12,8 @@ class App extends Component {
     bad: 0,
   };
 
-  handleIncrement = () => {
-    this.setState(prevState => ({ good: prevState.good + 1 }));
-  };
-  handleDecrement = () => {
-    this.setState(prevState => ({ bad: prevState.bad + 1 }));
-  };
-
-  handleNeutral = () => {
-    this.setState(prevState => ({ neutral: prevState.neutral + 1 }));
+  onLeaveFeedback = name => {
+    this.setState(prev => ({ [name]: prev[name] + 1 }));
   };
 
   countTotalFeedback = () => {
@@ -36,24 +29,23 @@ class App extends Component {
       <Base>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            handleDecrement={this.handleDecrement}
-            handleIncrement={this.handleIncrement}
-            handleNeutral={this.handleNeutral}
+            options={this.state}
+            onLeaveFeedback={this.onLeaveFeedback}
           />
         </Section>
-          {this.countTotalFeedback() > 0 ? (
-            <Statistics
-              good={this.state.good}
-              neutral={this.state.neutral}
-              bad={this.state.bad}
-              countTotalFeedback={this.countTotalFeedback}
-              countPositiveFeedbackPercentage={
-                this.countPositiveFeedbackPercentage
-              }
-            />
-          ) : (
-            <Notification message="There is no feedback" />
-          )}
+        {this.countTotalFeedback() > 0 ? (
+          <Statistics
+            good={this.state.good}
+            neutral={this.state.neutral}
+            bad={this.state.bad}
+            countTotalFeedback={this.countTotalFeedback}
+            countPositiveFeedbackPercentage={
+              this.countPositiveFeedbackPercentage
+            }
+          />
+        ) : (
+          <Notification message="There is no feedback" />
+        )}
       </Base>
     );
   }

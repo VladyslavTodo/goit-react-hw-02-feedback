@@ -2,24 +2,25 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Wrapper } from './FeedbackOptions.styled';
 
-const FeedbackOptions = ({
-  handleDecrement,
-  handleIncrement,
-  handleNeutral,
-}) => (
+const FeedbackOptions = ({ onLeaveFeedback, options }) => (
   <>
     <Wrapper>
-      <Button onClick={handleIncrement}>Good</Button>
-      <Button onClick={handleNeutral}>Neutral</Button>
-      <Button onClick={handleDecrement}>Bad</Button>
+      {Object.keys(options).map(item => {
+        return (
+          <li key={item}>
+            <Button onClick={() => onLeaveFeedback(item)}>
+              <span>{item}</span>
+            </Button>
+          </li>
+        );
+      })}
     </Wrapper>
   </>
 );
 
 FeedbackOptions.propTypes = {
-  handleIncrement: PropTypes.func.isRequired,
-  handleNeutral: PropTypes.func.isRequired,
-  handleDecrement: PropTypes.func.isRequired,
+  options: PropTypes.object.isRequired,
+  onLeaveFeedback: PropTypes.func.isRequired,
 };
 
 export default FeedbackOptions;
